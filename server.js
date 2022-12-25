@@ -4,20 +4,15 @@ import cors from 'cors'
 import { Configuration, OpenAIApi } from 'openai'
 
 dotenv.config()
-console.log(process.env.OPENAI_API_KEY)
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
- 
 });
 
 const openai = new OpenAIApi(configuration);
 
 const app = express()
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization', '*'],
-}));
+app.use(cors())
 app.use(express.json())
 
 app.get('/', async (req, res) => {
@@ -26,11 +21,10 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.post('/getAnswers', async (req, res) => { 
+app.post('/', async (req, res) => {
   try {
-    console.log(req.body)
     const prompt = req.body.prompt;
-   
+
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `${prompt}`,
