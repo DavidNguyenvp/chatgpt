@@ -21,7 +21,7 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.post('/', async (req, res) => {
+app.post('/getAnswers', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
